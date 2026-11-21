@@ -5,7 +5,7 @@ metadata:
 spec:
   replicas: 1
   strategy:
-    type: Recreate
+    type: RollingUpdate
   selector:
     matchLabels:
       app: nginx
@@ -13,14 +13,15 @@ spec:
     metadata:
       labels:
         app: nginx
-      spec:
-        containers:
+    spec:
+      containers:
           - name: nginx-container
             image: nginx:latest
             ports:
               - containerPort: 80
-            restartPoliy: OnFailure
-            imagePullBackPolicy: Always
+            restartPolicy: OnFailure
+            imagePullPolicy: Always
+      
 ---
 apiVersion: v1
 kind: Service
